@@ -1,0 +1,239 @@
+{
+    "data": {
+        "edges": [],
+        "nodes": [
+            {
+                "data": {
+                    "description": "Generates text using AI/ML API",
+                    "display_name": "AI/ML API",
+                    "id": "aimp-api-2vEfz",
+                    "node": {
+                        "template": {
+                            "_type": "Component",
+                            "code": {
+                                "type": "code",
+                                "required": true,
+                                "placeholder": "",
+                                "list": false,
+                                "show": true,
+                                "multiline": true,
+                                "value": "from typing import Optional\nfrom langchain_openai import ChatOpenAI\nfrom pydantic.v1 import SecretStr\n\nfrom langflow.base.constants import STREAM_INFO_TEXT\nfrom langflow.base.models.model import LCModelComponent\nfrom langflow.field_typing import LanguageModel\nfrom langflow.inputs import (\n    BoolInput,\n    DictInput,\n    DropdownInput,\n    FloatInput,\n    IntInput,\n    MessageInput,\n    SecretStrInput,\n    StrInput,\n)\n\nclass OpenAIModelComponent(LCModelComponent):\n    display_name = \"AIML API\"\n    description = \"Generates text using AI/ML API\"\n    icon = \"ChatInput\"\n\n    inputs = [\n        MessageInput(name=\"input_value\", display_name=\"Input\"),\n        IntInput(\n            name=\"max_tokens\",\n            display_name=\"Max Tokens\",\n            advanced=True,\n            info=\"The maximum number of tokens to generate. Set to 0 for unlimited tokens.\",\n        ),\n        DropdownInput(\n            name=\"model_name\", \n            display_name=\"Model Name\", \n            advanced=False, \n            options=[\"claude-3-5-sonnet-20240620\", \"claude-3-opus-20240229\", \"gpt-4o\", \"meta-llama/Llama-3-70b-chat-hf\",\n               \"mistralai/Mistral-7B-Instruct-v0.2\"], \n            value=\"claude-3-5-sonnet-20240620\"\n        ),\n        StrInput(\n            name=\"openai_api_base\",\n            display_name=\"OpenAI API Base\",\n            advanced=True,\n            info=\"The base URL of the OpenAI API. Defaults to https://api.openai.com/v1. You can change this to use other APIs like JinaChat, LocalAI and Prem.\",\n        ),\n        SecretStrInput(\n            name=\"openai_api_key\",\n            display_name=\"OpenAI API Key\",\n            info=\"The OpenAI API Key to use for the OpenAI model.\",\n            advanced=False,\n            value=\"OPENAI_API_KEY\",\n        ),\n        FloatInput(\n            name=\"temperature\",\n            display_name=\"Temperature\",\n            value=0.1\n        ),\n        BoolInput(name=\"stream\", display_name=\"Stream\", info=STREAM_INFO_TEXT, advanced=True),\n        StrInput(\n            name=\"system_message\",\n            display_name=\"System Message\",\n            info=\"System message to pass to the model.\",\n            advanced=True,\n        ),\n    ]\n\n    def build_model(\n        self\n    ) -> LanguageModel:\n        \n        openai_api_key = self.openai_api_key\n        temperature = self.temperature\n        model_name: str = self.model_name\n        max_tokens = self.max_tokens or 2048\n        openai_api_base = self.openai_api_base or \"https://api.openai.com/v1\"\n            \n        if not openai_api_base:\n            openai_api_base = \"https://api.aimlapi.com/v1\"\n        if openai_api_key:\n            api_key = SecretStr(openai_api_key)\n        else:\n            api_key = None\n\n        output = ChatOpenAI(\n            max_tokens=max_tokens or None,\n            model=model_name,\n            base_url=openai_api_base,\n            api_key=api_key,\n            temperature=temperature,\n        )\n\n        return output",
+                                "fileTypes": [],
+                                "file_path": "",
+                                "password": false,
+                                "name": "code",
+                                "advanced": true,
+                                "dynamic": true,
+                                "info": "",
+                                "load_from_db": false,
+                                "title_case": false
+                            },
+                            "input_value": {
+                                "trace_as_input": true,
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "",
+                                "name": "input_value",
+                                "display_name": "Input",
+                                "advanced": false,
+                                "input_types": [
+                                    "Message"
+                                ],
+                                "dynamic": false,
+                                "info": "",
+                                "title_case": false,
+                                "type": "str"
+                            },
+                            "max_tokens": {
+                                "trace_as_metadata": true,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "",
+                                "name": "max_tokens",
+                                "display_name": "Max Tokens",
+                                "advanced": true,
+                                "dynamic": false,
+                                "info": "The maximum number of tokens to generate. Set to 0 for unlimited tokens.",
+                                "title_case": false,
+                                "type": "int"
+                            },
+                            "model_name": {
+                                "trace_as_metadata": true,
+                                "options": [
+                                    "claude-3-5-sonnet-20240620",
+                                    "claude-3-opus-20240229",
+                                    "gpt-4o",
+                                    "meta-llama/Llama-3-70b-chat-hf",
+                                    "mistralai/Mistral-7B-Instruct-v0.2"
+                                ],
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "claude-3-5-sonnet-20240620",
+                                "name": "model_name",
+                                "display_name": "Model Name",
+                                "advanced": false,
+                                "dynamic": false,
+                                "info": "",
+                                "title_case": false,
+                                "type": "str",
+                                "load_from_db": false
+                            },
+                            "openai_api_base": {
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "https://api.aimlapi.com/v1",
+                                "name": "openai_api_base",
+                                "display_name": "OpenAI API Base",
+                                "advanced": true,
+                                "dynamic": false,
+                                "info": "The base URL of the OpenAI API. Defaults to https://api.openai.com/v1. You can change this to use other APIs like JinaChat, LocalAI and Prem.",
+                                "title_case": false,
+                                "type": "str"
+                            },
+                            "openai_api_key": {
+                                "load_from_db": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "bdb43e6fd9b6482a8885ce928e140817",
+                                "name": "openai_api_key",
+                                "display_name": "OpenAI API Key",
+                                "advanced": false,
+                                "input_types": [],
+                                "dynamic": false,
+                                "info": "The OpenAI API Key to use for the OpenAI model.",
+                                "title_case": false,
+                                "password": true,
+                                "type": "str"
+                            },
+                            "stream": {
+                                "trace_as_metadata": true,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": false,
+                                "name": "stream",
+                                "display_name": "Stream",
+                                "advanced": true,
+                                "dynamic": false,
+                                "info": "Stream the response from the model. Streaming works only in Chat.",
+                                "title_case": false,
+                                "type": "bool"
+                            },
+                            "system_message": {
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "",
+                                "name": "system_message",
+                                "display_name": "System Message",
+                                "advanced": true,
+                                "dynamic": false,
+                                "info": "System message to pass to the model.",
+                                "title_case": false,
+                                "type": "str"
+                            },
+                            "temperature": {
+                                "trace_as_metadata": true,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": 0.1,
+                                "name": "temperature",
+                                "display_name": "Temperature",
+                                "advanced": false,
+                                "dynamic": false,
+                                "info": "",
+                                "title_case": false,
+                                "type": "float"
+                            }
+                        },
+                        "description": "Generates text using AI/ML API",
+                        "icon": "ChatInput",
+                        "base_classes": [
+                            "LanguageModel",
+                            "Message"
+                        ],
+                        "display_name": "OpenAI",
+                        "documentation": "",
+                        "custom_fields": {},
+                        "output_types": [],
+                        "pinned": false,
+                        "conditional_paths": [],
+                        "frozen": false,
+                        "outputs": [
+                            {
+                                "types": [
+                                    "Message"
+                                ],
+                                "selected": "Message",
+                                "name": "text_output",
+                                "display_name": "Text",
+                                "method": "text_response",
+                                "value": "__UNDEFINED__",
+                                "cache": true
+                            },
+                            {
+                                "types": [
+                                    "LanguageModel"
+                                ],
+                                "selected": "LanguageModel",
+                                "name": "model_output",
+                                "display_name": "Language Model",
+                                "method": "build_model",
+                                "value": "__UNDEFINED__",
+                                "cache": true
+                            }
+                        ],
+                        "field_order": [
+                            "input_value",
+                            "max_tokens",
+                            "model_name",
+                            "openai_api_base",
+                            "openai_api_key",
+                            "temperature",
+                            "stream",
+                            "system_message"
+                        ],
+                        "beta": false,
+                        "edited": true,
+                        "official": false
+                    },
+                    "type": "OpenAIModelComponent"
+                },
+                "id": "OpenAIModel-2vEfz",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "type": "genericNode"
+            }
+        ],
+        "viewport": {
+            "x": 1,
+            "y": 1,
+            "zoom": 1
+        }
+    },
+    "description": "Generates text using AI/ML API",
+    "name": "AI/ML API",
+    "id": "aimp-api-2vEfz",
+    "is_component": true,
+    "last_tested_version": "1.0.9"
+}
