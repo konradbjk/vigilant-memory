@@ -1,18 +1,11 @@
-from typing import List
-from pprint import pprint
-
 from langchain_community.vectorstores import Qdrant
 from langflow.base.vectorstores.model import LCVectorStoreComponent
-from langflow.helpers.data import docs_to_data
 from langflow.field_typing import VectorStore
 from langflow.io import (
-    DropdownInput,
     HandleInput,
-    IntInput,
     StrInput,
     SecretStrInput,
     DataInput,
-    MultilineInput,
 )
 from langflow.schema import Data
 from langchain.embeddings.base import Embeddings
@@ -73,7 +66,6 @@ class QdrantVectorStoreComponent(LCVectorStoreComponent):
         server_kwargs = {k: v for k,
                          v in server_kwargs.items() if v is not None}
         
-        pprint(server_kwargs)
         documents = []
 
         for _input in self.ingest_data or []:
@@ -81,8 +73,6 @@ class QdrantVectorStoreComponent(LCVectorStoreComponent):
                 documents.append(_input.to_lc_document())
             else:
                 documents.append(_input)
-
-        print(f"Documents: {len(documents)}")
         
         if not isinstance(self.embedding, Embeddings):
             raise ValueError("Invalid embedding object")

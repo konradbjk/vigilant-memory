@@ -28,6 +28,4 @@ class ParseDataComponent(Component):
             content = el.data.get('text', 'No Text Provided').replace('\n', ' ') 
             result_string += f"<quote title={source}>{content}</quote>\n"
 
-        print(result_string)
-
         return result_string
