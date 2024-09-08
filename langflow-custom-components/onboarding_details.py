@@ -1,5 +1,5 @@
 from langflow.base.io.text import TextComponent
-from langflow.io import MessageTextInput, Output
+from langflow.io import MultilineInput, Output
 from langflow.schema.message import Message
 
 
@@ -10,32 +10,32 @@ class TextInputComponent(TextComponent):
     name = "TextInput"
 
     inputs = [
-        MessageTextInput(
+        MultilineInput(
             name="goal",
             display_name="Goal",
             info="Text to be passed as input.",
         ),
-        MessageTextInput(
+        MultilineInput(
             name="industry",
             display_name="Industry",
             info="Text to be passed as input.",
         ),
-        MessageTextInput(
+        MultilineInput(
             name="audience",
             display_name="Audience",
             info="Text to be passed as input.",
         ),
-        MessageTextInput(
+        MultilineInput(
             name="perception",
             display_name="Perception",
             info="Text to be passed as input.",
         ),
-        MessageTextInput(
+        MultilineInput(
             name="uvp",
             display_name="Unique Value Points",
             info="Text to be passed as input.",
         ),
-        MessageTextInput(
+        MultilineInput(
             name="tov",
             display_name="Tone of Voice",
             info="Text to be passed as input.",
