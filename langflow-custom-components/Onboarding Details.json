@@ -1,0 +1,267 @@
+{
+    "data": {
+        "edges": [],
+        "nodes": [
+            {
+                "data": {
+                    "type": "TextInput",
+                    "node": {
+                        "template": {
+                            "_type": "Component",
+                            "code": {
+                                "type": "code",
+                                "required": true,
+                                "placeholder": "",
+                                "list": false,
+                                "show": true,
+                                "multiline": true,
+                                "value": "from langflow.base.io.text import TextComponent\nfrom langflow.io import MessageTextInput, Output\nfrom langflow.schema.message import Message\n\n\nclass TextInputComponent(TextComponent):\n    display_name = \"Onboarding Details\"\n    description = \"Get text inputs from the Playground.\"\n    icon = \"type\"\n    name = \"TextInput\"\n\n    inputs = [\n        MessageTextInput(\n            name=\"goal\",\n            display_name=\"Goal\",\n            info=\"Text to be passed as input.\",\n        ),\n        MessageTextInput(\n            name=\"industry\",\n            display_name=\"Industry\",\n            info=\"Text to be passed as input.\",\n        ),\n        MessageTextInput(\n            name=\"audience\",\n            display_name=\"Audience\",\n            info=\"Text to be passed as input.\",\n        ),\n        MessageTextInput(\n            name=\"perception\",\n            display_name=\"Perception\",\n            info=\"Text to be passed as input.\",\n        ),\n        MessageTextInput(\n            name=\"uvp\",\n            display_name=\"Unique Value Points\",\n            info=\"Text to be passed as input.\",\n        ),\n        MessageTextInput(\n            name=\"tov\",\n            display_name=\"Tone of Voice\",\n            info=\"Text to be passed as input.\",\n        ),\n    ]\n    outputs = [\n        Output(display_name=\"Goal\", name=\"goal_text\", method=\"text_response\"),\n        Output(display_name=\"Industry\", name=\"industry_text\", method=\"get_industry\"),\n        Output(display_name=\"Audience\", name=\"audience_text\", method=\"get_audience\"),        \n        Output(display_name=\"Perception\", name=\"perception_text\", method=\"get_perception\"),\n        Output(display_name=\"UVP\", name=\"uvp_text\", method=\"get_uvp\"),\n        Output(display_name=\"Tone of Voice\", name=\"tov_text\", method=\"get_tov\"),\n\n    ]\n\n    def text_response(self) -> Message:\n        message = Message(\n            text=self.goal,\n        )\n        return message\n\n\n    def get_industry(self) -> Message:\n        message = Message(\n            text=self.industry,\n        )\n        return message\n        \n    def get_audience(self) -> Message:\n        message = Message(\n            text=self.audience,\n        )\n        return message\n        \n    def get_uvp(self) -> Message:\n        message = Message(\n            text=self.uvp,\n        )\n        return message\n        \n    def get_perception(self) -> Message:\n        message = Message(\n            text=self.perception,\n        )\n        return message\n        \n    def get_tov(self) -> Message:\n        message = Message(\n            text=self.tov,\n        )\n        return message",
+                                "fileTypes": [],
+                                "file_path": "",
+                                "password": false,
+                                "name": "code",
+                                "advanced": true,
+                                "dynamic": true,
+                                "info": "",
+                                "load_from_db": false,
+                                "title_case": false
+                            },
+                            "audience": {
+                                "trace_as_input": true,
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "...",
+                                "name": "audience",
+                                "display_name": "Audience",
+                                "advanced": false,
+                                "input_types": [
+                                    "Message"
+                                ],
+                                "dynamic": false,
+                                "info": "Text to be passed as input.",
+                                "title_case": false,
+                                "type": "str",
+                                "_input_type": "MessageTextInput"
+                            },
+                            "goal": {
+                                "trace_as_input": true,
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "Growing my consulting business and become a known though leader",
+                                "name": "goal",
+                                "display_name": "Goal",
+                                "advanced": false,
+                                "input_types": [
+                                    "Message"
+                                ],
+                                "dynamic": false,
+                                "info": "Text to be passed as input.",
+                                "title_case": false,
+                                "type": "str",
+                                "_input_type": "MessageTextInput"
+                            },
+                            "industry": {
+                                "trace_as_input": true,
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "...",
+                                "name": "industry",
+                                "display_name": "Industry",
+                                "advanced": false,
+                                "input_types": [
+                                    "Message"
+                                ],
+                                "dynamic": false,
+                                "info": "Text to be passed as input.",
+                                "title_case": false,
+                                "type": "str",
+                                "_input_type": "MessageTextInput"
+                            },
+                            "perception": {
+                                "trace_as_input": true,
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "...",
+                                "name": "perception",
+                                "display_name": "Perception",
+                                "advanced": false,
+                                "input_types": [
+                                    "Message"
+                                ],
+                                "dynamic": false,
+                                "info": "Text to be passed as input.",
+                                "title_case": false,
+                                "type": "str",
+                                "_input_type": "MessageTextInput"
+                            },
+                            "tov": {
+                                "trace_as_input": true,
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "...",
+                                "name": "tov",
+                                "display_name": "Tone of Voice",
+                                "advanced": false,
+                                "input_types": [
+                                    "Message"
+                                ],
+                                "dynamic": false,
+                                "info": "Text to be passed as input.",
+                                "title_case": false,
+                                "type": "str",
+                                "_input_type": "MessageTextInput"
+                            },
+                            "uvp": {
+                                "trace_as_input": true,
+                                "trace_as_metadata": true,
+                                "load_from_db": false,
+                                "list": false,
+                                "required": false,
+                                "placeholder": "",
+                                "show": true,
+                                "value": "...",
+                                "advanced": false,
+                                "input_types": [
+                                    "Message"
+                                ],
+                                "dynamic": false,
+                                "info": "Text to be passed as input.",
+                                "title_case": false,
+                                "type": "str",
+                                "_input_type": "MessageTextInput"
+                            }
+                        },
+                        "description": "Get text inputs from the Playground.",
+                        "icon": "type",
+                        "base_classes": [
+                            "Message"
+                        ],
+                        "display_name": "Text Input",
+                        "documentation": "",
+                        "custom_fields": {},
+                        "output_types": [],
+                        "pinned": false,
+                        "conditional_paths": [],
+                        "frozen": false,
+                        "outputs": [
+                            {
+                                "types": [
+                                    "Message"
+                                ],
+                                "selected": "Message",
+                                "name": "goal_text",
+                                "display_name": "Goal",
+                                "method": "text_response",
+                                "value": "__UNDEFINED__",
+                                "cache": true
+                            },
+                            {
+                                "types": [
+                                    "Message"
+                                ],
+                                "selected": "Message",
+                                "name": "industry_text",
+                                "display_name": "Industry",
+                                "method": "get_industry",
+                                "value": "__UNDEFINED__",
+                                "cache": true
+                            },
+                            {
+                                "types": [
+                                    "Message"
+                                ],
+                                "selected": "Message",
+                                "name": "audience_text",
+                                "display_name": "Audience",
+                                "method": "get_audience",
+                                "value": "__UNDEFINED__",
+                                "cache": true
+                            },
+                            {
+                                "types": [
+                                    "Message"
+                                ],
+                                "selected": "Message",
+                                "name": "perception_text",
+                                "display_name": "Perception",
+                                "method": "get_perception",
+                                "value": "__UNDEFINED__",
+                                "cache": true
+                            },
+                            {
+                                "types": [
+                                    "Message"
+                                ],
+                                "selected": "Message",
+                                "name": "uvp_text",
+                                "display_name": "UVP",
+                                "method": "get_uvp",
+                                "value": "__UNDEFINED__",
+                                "cache": true
+                            },
+                            {
+                                "types": [
+                                    "Message"
+                                ],
+                                "selected": "Message",
+                                "name": "tov_text",
+                                "display_name": "Tone of Voice",
+                                "method": "get_tov",
+                                "value": "__UNDEFINED__",
+                                "cache": true
+                            }
+                        ],
+                        "field_order": [
+                            "goal",
+                            "industry",
+                            "audience",
+                            "perception",
+                            "uvp",
+                            "tov"
+                        ],
+                        "beta": false,
+                        "edited": true,
+                        "official": false
+                    },
+                    "id": "TextInput-NL5fM"
+                },
+                "id": "TextInput-NL5fM",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "type": "genericNode"
+            }
+        ],
+        "viewport": {
+            "x": 1,
+            "y": 1,
+            "zoom": 1
+        }
+    },
+    "description": "Get text inputs from the Playground.",
+    "name": "Onboarding Details",
+    "id": "TextInput-NL5fM",
+    "is_component": true,
+    "last_tested_version": "1.0.14"
+}
